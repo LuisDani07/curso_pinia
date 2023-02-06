@@ -5,15 +5,23 @@
             <img src="./assets/pinia-logo.svg" alt="pinia-logo">
             <h1>Pinia Tasks</h1>
           </header>
+
+          <!-- filter -->
+          <nav class="filter">
+              <button @click="filter='all'">all tasks</button>
+              <button @click="filter='favs'">all tasks</button>
+          </nav>
+
+
           <!-- task list -->
-          <div class="task-list">
-            <p>all tasks</p>
-            <div v-for="task in TaskStore.tasks">
+          <div class="task-list" v-if="filter==='all'">
+            <p>you have {{ TaskStore.totalCount }} tasks left to do</p>
+            <div v-for="task in TaskStore.tasks" key="task.id">
               <TaskDetails :task="task"/>
             </div>
           </div>
-          <div class="task-list">
-            <p>favorite tasks</p>
+          <div class="task-list" v-if="filter==='favs'">
+            <p>you have {{ TaskStore.favCount }} favs to do</p>
             <div v-for="task in TaskStore.favs">
               <TaskDetails :task="task"/>
             </div>
