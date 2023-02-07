@@ -1,13 +1,8 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "title": "buy some milk",
-      "isFav": true
-    },
-    {
       "title": "lavar",
-      "isFav": false,
+      "isFav": true,
       "id": 736
     },
     {
