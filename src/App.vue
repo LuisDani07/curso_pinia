@@ -18,6 +18,9 @@
               <button @click="filter='favs'">fav tasks</button>
           </nav>
 
+          <!-- loading -->
+          <div class="loading" v-if="TaskStore.loading">loading...</div>
+
 
           <!-- task list -->
           <div class="task-list" v-if="filter==='all'">
@@ -46,6 +49,7 @@ import {useTaskStore} from './store/TaskStore';
       },
       setup (){
          const TaskStore=useTaskStore();
+         TaskStore.getTasks();
 
          const filter=ref('all');
 
