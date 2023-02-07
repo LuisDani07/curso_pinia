@@ -26,17 +26,47 @@ state:()=>({
         this.tasks=data;
         this.loading=false;
     },
-    addTask(task){
-           this.tasks.push(task);
+    async addTask(task){
+           const res=await fetch('http://localhost:3000/tasks',{
+           method:'POST',
+           body:JSON.stringify(task),
+           headers:{'content-type':'application/json'}
+           })
+
+           if(res.error){
+            console.log(res.error);
+           }else{
+            this.tasks.push(task)
+           }
     },
-    deleteTask(id){
-        this.tasks=this.tasks.filter(t=>{
-            return t.id!==id
+    async deleteTask(id){
+        const res=await fetch('http://localhost:3000/tasks/'+ id,{
+            method:'DELETE'
+            })
+ 
+            if(res.error){
+             console.log(res.error);
+            }else{
+                this.tasks=this.tasks.filter(t=>{
+                    return t.id!==id
+                })
+            } 
+
+    },
+   async toggleFav(id){
+
+    const task=this.tasks.find(t=>t.id===id)
+    task.isFav=!task.isFav;
+
+    const res=await fetch('http://localhost:3000/tasks/'+id,{
+        method:'PATCH',
+        body:JSON.stringify({isFav:task.isFav}),
+        headers:{'content-type':'application/json'}
         })
-    },
-    toggleFav(id){
-           const task=this.tasks.find(t=>t.id===id)
-           task.isFav=!task.isFav;
+
+        if(res.error){
+         console.log(res.error);
+        }
     }
  }
 })
